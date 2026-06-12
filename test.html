@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Test Firebase</title></head>
+<body>
+<h2 id="status">Cargando...</h2>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+document.getElementById("status").textContent = "Firebase SDK cargado ✅";
+try {
+  firebase.initializeApp({
+    apiKey: "AIzaSyCVRgqcStdQQaTFInHD4EiMsRd4o1v8AEQ",
+    authDomain: "quiniela-tripulacion.firebaseapp.com",
+    databaseURL: "https://quiniela-tripulacion-default-rtdb.firebaseio.com",
+    projectId: "quiniela-tripulacion",
+    storageBucket: "quiniela-tripulacion.firebasestorage.app",
+    messagingSenderId: "420391138349",
+    appId: "1:420391138349:web:f34edd892f1aa2077cb4a4"
+  });
+  document.getElementById("status").textContent = "Firebase inicializado ✅";
+  const db = firebase.database();
+  db.ref("test").set("ping").then(() => {
+    document.getElementById("status").textContent = "Firebase conectado y escribiendo ✅ TODO FUNCIONA";
+  }).catch(e => {
+    document.getElementById("status").textContent = "Error escribiendo: " + e.message;
+  });
+} catch(e) {
+  document.getElementById("status").textContent = "Error: " + e.message;
+}
+</script>
+</body>
+</html>
