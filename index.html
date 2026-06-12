@@ -1135,16 +1135,14 @@ function showToast(msg) {
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 buildLogin();
-// Loading screen stays visible until Firebase connects (handled in subscribeDb)
+document.getElementById("loading").style.display = "none"; // always hide loading first
 const saved = localStorage.getItem("qe_user");
 const authed = sessionStorage.getItem("qe_auth");
-// Only skip PIN if they authenticated this session (tab still open)
 if(saved && MEMBERS.includes(saved) && authed === saved) {
   me = saved;
   document.getElementById("login-screen").style.display="none";
   showApp();
 } else {
-  // Clear any stale localStorage if no session auth
   if(saved) localStorage.removeItem("qe_user");
   document.getElementById("login-screen").style.display="flex";
 }
