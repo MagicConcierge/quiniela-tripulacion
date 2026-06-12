@@ -447,9 +447,9 @@ body::before {
   </main>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
 
 const firebaseConfig = {
   apiKey: "AIzaSyCVRgqcStdQQaTFInHD4EiMsRd4o1v8AEQ",
@@ -461,7 +461,8 @@ const firebaseConfig = {
   appId: "1:420391138349:web:f34edd892f1aa2077cb4a4"
 };
 
-const db = getDatabase(initializeApp(firebaseConfig));
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
 // ── CONSTANTES ────────────────────────────────────────────────────────────────
 const MEMBERS = ["Rafa","Freddo","Luzzio","Oli","Antuan","Canniggia","Doctor","Sapo","Rata Dominguez","Rata Zubiran","Bala","Chanclas","Castro","Alancito","Ivan","Vanzant","Julai"];
@@ -931,7 +932,8 @@ function revealApp() {
 function subscribeDb() {
   // Fallback: show app after 5s even if Firebase is slow
   setTimeout(revealApp, 5000);
-  unsub = onValue(ref(db,"quiniela"), snap => {
+  const dbRef = db.ref("quiniela");
+  dbRef.on("value", snap => {
     dbState = snap.val()||{};
     revealApp();
     renderAll();
@@ -940,6 +942,7 @@ function subscribeDb() {
     setSyncStatus("error");
     revealApp();
   });
+  unsub = () => dbRef.off();
 }
 
 function setSyncStatus(s) {
@@ -955,7 +958,7 @@ window.cyclePred = (phId, mi) => {
   const cycle = ["1","X","2",""];
   const next  = cycle[(cycle.indexOf(cur)+1)%cycle.length];
   setSyncStatus("syncing");
-  set(ref(db,`quiniela/${phId}/${mi}/preds/${me}`), next||null)
+  db.ref(`quiniela/${phId}/${mi}/preds/${me}`).set(next||null)
     .then(()=>{
       setSyncStatus("online");
       const real = getMData(phId,mi).real;
@@ -966,7 +969,7 @@ window.cyclePred = (phId, mi) => {
 window.setReal = (phId, mi, val) => {
   if(!isAdmin()) return;
   setSyncStatus("syncing");
-  set(ref(db,`quiniela/${phId}/${mi}/real`), val||null)
+  db.ref(`quiniela/${phId}/${mi}/real`).set(val||null)
     .then(()=>{
       setSyncStatus("online");
       if(val) {
