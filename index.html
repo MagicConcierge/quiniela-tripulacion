@@ -660,21 +660,6 @@ function buildResBtns(phId, mi, real, lo, vi) {
     <button class="res-btn ${cls('2')} ${ro}" ${cv}>${F(vi)} Gana</button>`;
 }
 
-function buildPredBtn(phId, mi, name, val) {
-  const display = {
-    "1":{pi:F,pf:true, pl:"Gana"},
-    "X":{pi:()=>"🤝",pf:false,pl:"Empate"},
-    "2":{pi:F,pv:true, pl:"Gana"},
-    "" :{pi:()=>"❓",pf:false,pl:"Elegir"},
-  };
-  const isMe = name === me;
-  const d = val==="1" ? {icon:F(phId==='grupos'||true?window._matchLocal?.[phId]?.[mi]||'':'' : ''), label:"Gana"}
-          : val==="X" ? {icon:"🤝",label:"Empate"}
-          : val==="2" ? {icon:F(vi), label:"Gana"}
-          : {icon:"❓",label:"Elegir"};
-  // simpler approach: pass local/vis
-  return null; // handled inline
-}
 
 function predsHtml(phId, mi, real, preds, lo, vi) {
   return MEMBERS.map(n => {
@@ -936,12 +921,25 @@ function setTab(id) {
 }
 
 // ── FIREBASE ──────────────────────────────────────────────────────────────────
+let firstLoad = true;
+function revealApp() {
+  if (!firstLoad) return;
+  firstLoad = false;
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("app").style.display = "block";
+}
 function subscribeDb() {
+  // Fallback: show app after 5s even if Firebase is slow
+  setTimeout(revealApp, 5000);
   unsub = onValue(ref(db,"quiniela"), snap => {
     dbState = snap.val()||{};
+    revealApp();
     renderAll();
     setSyncStatus("online");
-  }, ()=>setSyncStatus("error"));
+  }, (err) => {
+    setSyncStatus("error");
+    revealApp();
+  });
 }
 
 function setSyncStatus(s) {
@@ -1095,7 +1093,7 @@ window.logout = () => {
 
 function showApp() {
   document.getElementById("login-screen").style.display="none";
-  document.getElementById("app").style.display="block";
+  document.getElementById("loading").style.display="flex"; // show loading while Firebase connects
   document.getElementById("user-badge").textContent=me;
   buildTabs();
   subscribeDb();
@@ -1134,7 +1132,7 @@ function showToast(msg) {
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 buildLogin();
-document.getElementById("loading").style.display="none";
+// Loading screen stays visible until Firebase connects (handled in subscribeDb)
 const saved = localStorage.getItem("qe_user");
 const authed = sessionStorage.getItem("qe_auth");
 // Only skip PIN if they authenticated this session (tab still open)
