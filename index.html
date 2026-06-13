@@ -551,15 +551,15 @@ function times(hmx, dateStr) {
   return { mx, cet, et, utcH, utcM };
 }
 
-// Dates with grace period (unlock for late entry) — midnight MX Jun 13 = UTC Jun 13 06:00
-const GRACE_UNTIL = new Date(Date.UTC(2026, 5, 13, 6, 0, 0)); // Jun 13 midnight MX
-const GRACE_DATES = ["Jun 11", "Jun 12"];
+// Grace period: Jun 11, 12, 13 open until midnight MX Jun 14 (UTC Jun 14 06:00)
+const GRACE_UNTIL = new Date(Date.UTC(2026, 5, 14, 6, 0, 0));
+const GRACE_DATES = ["Jun 11", "Jun 12", "Jun 13"];
 
 // Returns true if match has already kicked off (lock predictions)
 function matchStarted(match) {
   if (!match.f || match.utcH === undefined) return false;
   const now = new Date();
-  // Grace period: Jun 11 & 12 matches are open until midnight MX Jun 13
+  // Grace period: Jun 11-13 open until midnight MX Jun 14
   if (GRACE_DATES.includes(match.f) && now < GRACE_UNTIL) return false;
   const dayOfYear = MONTH_DAYS[match.f];
   if (!dayOfYear) return false;
