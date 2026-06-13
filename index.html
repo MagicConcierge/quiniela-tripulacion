@@ -483,7 +483,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 // ── CONSTANTES ────────────────────────────────────────────────────────────────
-const MEMBERS = ["Rafa","Freddo","Luzzio","Oli","Antuan","Canniggia","Doctor","Sapo","Rata Dominguez","Rata Zubiran","Bala","Chanclas","Castro","Alancito","Ivan","Vanzant","Julai"];
+const MEMBERS = ["Rafa","Freddo","Luzzio","Oli","Antuan","Canniggia","Doctor","Sapo","Rata Dominguez","Rata Zubiran","Bala","Chanclas","Castro","Alancito","Ivancito","Vanzant","Julai"];
 const PTS = 3;
 const RESULT_ADMIN = "Rafa"; // solo Rafa pone resultados
 
@@ -503,7 +503,7 @@ const PINS = {
   "Chanclas":       "3927",
   "Castro":         "6054",
   "Alancito":       "1743",
-  "Ivan":           "8296",
+  "Ivancito":       "8296",
   "Vanzant":        "4571",
   "Julai":          "9384",
 };
@@ -666,7 +666,7 @@ const PHASES = [
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let me = null, dbState = {}, unsub = null, aiLoaded = false;
+let me = null, dbState = {}, unsub = null;
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 const getMX = () => {
@@ -815,7 +815,7 @@ function renderHoy() {
   PHASES.forEach(ph => ph.matches.forEach((m,i) => { if(m.f===today) todayMatches.push({ph,m,i}); }));
 
   if (!todayMatches.length) {
-    aiLoaded = false;
+    
     panel.innerHTML = `<div class="hoy-empty">
       <div class="hoy-empty-icon">🛸</div>
       <div class="hoy-empty-title">Sin Misiones Hoy</div>
@@ -842,46 +842,76 @@ function renderHoy() {
   todayMatches.forEach(({ph,m,i}) => { html += matchCardHtml(ph.id, m, i); });
   panel.innerHTML = html;
 
-  if (!aiLoaded) { aiLoaded = true; loadAI(todayMatches, today); }
+  // Always regenerate — never cache AI content
+  loadAI(todayMatches, today);
 }
 
-async function loadAI(todayMatches, today) {
-  const matchList = todayMatches.map(({m})=>`${m.l} vs ${m.v} (Grupo ${m.g||'—'}, ${m.mx} hora MX)`).join(", ");
+async function callClaude(system, user, fallback) {
   try {
-    const r = await fetch("https://api.anthropic.com/v1/messages",{
-      method:"POST", headers:{"Content-Type":"application/json"},
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model:"claude-sonnet-4-6", max_tokens:130,
-        system:"Eres el capitán de la Tripulación Enterprise, una quiniela de cuates del Mundial 2026. Hablas con energía, humor y jerga de cuates mexicanos. Sin emojis al inicio. Máximo 2 oraciones.",
-        messages:[{role:"user",content:`Partidos hoy ${today}: ${matchList}. El tripulante se llama ${me}. Escríbele un mensaje de aliento para que ponga su pronóstico hoy. Usa su nombre, sé irreverente y divertido. 2 oraciones máx.`}]
+        model: "claude-sonnet-4-6",
+        max_tokens: 180,
+        system,
+        messages: [{ role: "user", content: user }]
       })
     });
     const d = await r.json();
-    const t = d.content?.[0]?.text || `¡${me}, no te rajes! Pon tu pronóstico antes de que empiece la acción.`;
-    const el = document.getElementById("aliento-text");
-    if (el) { el.textContent = t; el.classList.remove("loading"); }
-  } catch(e) {
-    const el = document.getElementById("aliento-text");
-    if (el) { el.textContent = `¡${me}, a pronosticar se ha dicho! La Tripulación está esperando.`; el.classList.remove("loading"); }
-  }
-  try {
-    const teams2 = todayMatches.slice(0,2).map(({m})=>`${m.l} y ${m.v}`).join(", ");
-    const r2 = await fetch("https://api.anthropic.com/v1/messages",{
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({
-        model:"claude-sonnet-4-6", max_tokens:130,
-        system:"Eres experto en historia del fútbol y estadísticas del Mundial. Respondes en español sencillo. Sin emojis. 2 oraciones máximo.",
-        messages:[{role:"user",content:`Partidos del Mundial 2026 hoy (${today}): ${matchList}. Dame UN dato curioso, estadística o hecho histórico sorprendente sobre alguno de estos equipos: ${teams2}. Debe ser fascinante y fácil de entender. 2 oraciones.`}]
-      })
-    });
-    const d2 = await r2.json();
-    const t2 = d2.content?.[0]?.text || "El Mundial 2026 es histórico: primera vez con 48 selecciones en 3 países sede.";
-    const el2 = document.getElementById("curi-text");
-    if (el2) { el2.textContent = t2; el2.classList.remove("loading"); }
-  } catch(e) {
-    const el2 = document.getElementById("curi-text");
-    if (el2) { el2.textContent = "El Mundial 2026 es el primero en la historia con 48 selecciones y 104 partidos."; el2.classList.remove("loading"); }
-  }
+    return d.content?.[0]?.text || fallback;
+  } catch(e) { return fallback; }
+}
+
+async function loadAI(todayMatches, today) {
+  const matchList = todayMatches.map(({m}) => `${m.l} vs ${m.v}`).join(", ");
+  const allTeams  = [...new Set(todayMatches.flatMap(({m}) => [m.l, m.v]))];
+
+  // Pick a random team pair to focus curiosity on
+  const focusIdx   = Math.floor(Math.random() * todayMatches.length);
+  const focusMatch = todayMatches[focusIdx].m;
+  const focusTeams = `${focusMatch.l} vs ${focusMatch.v}`;
+
+  // Random personality styles for aliento — so it's never the same
+  const styles = [
+    "Hablas como cuate mexicano irreverente, con humor negro y albures suaves. Nada de emojis.",
+    "Hablas como comentarista deportivo exagerado y dramático, estilo narrador de gol. Nada de emojis.",
+    "Hablas como el tío borracho del partido que sabe de fut pero no para de reírse. Nada de emojis.",
+    "Hablas como estratega militar que convierte el fut en una misión espacial de vida o muerte. Nada de emojis.",
+    "Hablas como filósofo que mezcla Nietzsche con fut de barrio. Nada de emojis.",
+    "Hablas como el más nerd del grupo que calcula probabilidades pero con mucho corazón. Nada de emojis.",
+  ];
+  const style = styles[Math.floor(Math.random() * styles.length)];
+
+  // Random curiosity angles — so the data always sorprises
+  const angles = [
+    `Un récord Mundial absurdo o vergonzoso de ${focusMatch.l} o ${focusMatch.v} que nadie recuerda.`,
+    `Un dato estadístico extraño o improbable del partido ${focusTeams} en la historia del Mundial.`,
+    `Una anécdota bizarra o increíble sobre algún jugador histórico de ${focusMatch.l} o ${focusMatch.v}.`,
+    `Cuánto dinero, poder o locura hay detrás de ${focusMatch.l} o ${focusMatch.v} como selección.`,
+    `Una predicción absurda que se cumplió o no se cumplió sobre ${focusMatch.l} o ${focusMatch.v}.`,
+    `El partido más loco en la historia entre selecciones similares a las de hoy: ${matchList}.`,
+  ];
+  const angle = angles[Math.floor(Math.random() * angles.length)];
+
+  // Run both in parallel
+  const [aliento, curiosidad] = await Promise.all([
+    callClaude(
+      `Eres el capitán de la Tripulación Enterprise, quiniela de carnales del Mundial 2026. ${style} Máximo 2 oraciones contundentes.`,
+      `Hoy juegan: ${matchList}. El tripulante es ${me}. Escríbele algo que lo obligue a poner su pronóstico AHORA. Menciona su nombre. Sorpréndelo.`,
+      `¡${me}, ya todos pusieron su pronóstico menos tú! No seas el del grupo que siempre llega tarde.`
+    ),
+    callClaude(
+      `Eres el oráculo de datos futbolísticos de la Tripulación Enterprise. Respondes en español. Sin emojis. Máximo 2 oraciones. El dato debe ser tan sorprendente que la gente diga "no puede ser".`,
+      `${angle} Que sea un dato real, verificable, que deje con el ojo cuadrado. 2 oraciones máximo.`,
+      `${focusMatch.l} y ${focusMatch.v} juntos han jugado en Mundiales donde nadie apostaba por ellos — y uno de los dos siempre termina sorprendiendo.`
+    )
+  ]);
+
+  const el1 = document.getElementById("aliento-text");
+  const el2 = document.getElementById("curi-text");
+  if (el1) { el1.textContent = aliento;   el1.classList.remove("loading"); }
+  if (el2) { el2.textContent = curiosidad; el2.classList.remove("loading"); }
 }
 
 function renderMedallero() {
