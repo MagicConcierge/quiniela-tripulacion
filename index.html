@@ -1233,6 +1233,7 @@ function showApp() {
   document.getElementById("login-screen").style.display="none";
   document.getElementById("loading").style.display="flex"; // show loading while Firebase connects
   document.getElementById("user-badge").textContent=me;
+  firstLoad = true; // reset so revealApp works
   buildTabs();
   subscribeDb();
 }
@@ -1270,15 +1271,15 @@ function showToast(msg) {
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 buildLogin();
-document.getElementById("loading").style.display = "none"; // always hide loading first
 const saved = localStorage.getItem("qe_user");
 const authed = sessionStorage.getItem("qe_auth");
 if(saved && MEMBERS.includes(saved) && authed === saved) {
   me = saved;
   document.getElementById("login-screen").style.display="none";
-  showApp();
+  showApp(); // showApp handles loading → revealApp
 } else {
   if(saved) localStorage.removeItem("qe_user");
+  document.getElementById("loading").style.display="none";
   document.getElementById("login-screen").style.display="flex";
 }
 </script>
