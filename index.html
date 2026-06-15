@@ -710,7 +710,7 @@ function buildResBtns(phId, mi, real, lo, vi) {
 
 
 function predsHtml(phId, mi, real, preds, lo, vi, match) {
-  const locked = matchStarted(match);
+  const locked = matchStarted(match) && !isAdmin();
   return MEMBERS.map(n => {
     const v = preds?.[n] || "";
     const isMe = n === me;
@@ -1039,7 +1039,8 @@ function setSyncStatus(s) {
 window.cyclePred = (phId, mi) => {
   // Find match to check if started
   const ph = PHASES.find(p=>p.id===phId);
-  if (ph && matchStarted(ph.matches[mi])) return; // locked
+  // Only block non-admins when match has started
+  if (ph && matchStarted(ph.matches[mi]) && !isAdmin()) return;
   const cur = getMData(phId,mi).preds?.[me] || "";
   const cycle = ["1","X","2",""];
   const next  = cycle[(cycle.indexOf(cur)+1)%cycle.length];
