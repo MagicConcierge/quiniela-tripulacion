@@ -581,78 +581,78 @@ function matchStarted(match) {
 }
 
 const GRUPOS = [
-  {l:"México",       v:"Sudáfrica",    g:"A",f:"Jun 11",...times("13:00","Jun 11")},
-  {l:"Corea del Sur",v:"R. Checa",     g:"A",f:"Jun 11",...times("20:00","Jun 11")},
-  {l:"Canadá",       v:"Bosnia-Herz.", g:"B",f:"Jun 12",...times("13:00","Jun 12")},
-  {l:"EE.UU.",       v:"Paraguay",     g:"D",f:"Jun 12",...times("19:00","Jun 12")},
-  {l:"Qatar",        v:"Suiza",        g:"B",f:"Jun 13",...times("13:00","Jun 13")},
-  {l:"Brasil",       v:"Marruecos",    g:"C",f:"Jun 13",...times("16:00","Jun 13")},
-  {l:"Haití",        v:"Escocia",      g:"C",f:"Jun 13",...times("19:00","Jun 13")},
-  {l:"Australia",    v:"Turquía",      g:"D",f:"Jun 13",...times("22:00","Jun 13")},
-  {l:"Alemania",     v:"Curazao",      g:"E",f:"Jun 14",...times("11:00","Jun 14")},
-  {l:"P. Bajos",     v:"Japón",        g:"F",f:"Jun 14",...times("14:00","Jun 14")},
-  {l:"C. de Marfil", v:"Ecuador",      g:"E",f:"Jun 14",...times("17:00","Jun 14")},
-  {l:"Suecia",       v:"Túnez",        g:"F",f:"Jun 14",...times("20:00","Jun 14")},
-  {l:"España",       v:"Cabo Verde",   g:"H",f:"Jun 15",...times("10:00","Jun 15")},
-  {l:"Bélgica",      v:"Egipto",       g:"G",f:"Jun 15",...times("13:00","Jun 15")},
-  {l:"Arabia S.",    v:"Uruguay",      g:"H",f:"Jun 15",...times("16:00","Jun 15")},
-  {l:"Irán",         v:"N. Zelanda",   g:"G",f:"Jun 15",...times("19:00","Jun 15")},
-  {l:"Francia",      v:"Senegal",      g:"I",f:"Jun 16",...times("13:00","Jun 16")},
-  {l:"Irak",         v:"Noruega",      g:"I",f:"Jun 16",...times("16:00","Jun 16")},
-  {l:"Argentina",    v:"Argelia",      g:"J",f:"Jun 16",...times("19:00","Jun 16")},
-  {l:"Austria",      v:"Jordania",     g:"J",f:"Jun 16",...times("22:00","Jun 16")},
-  {l:"Portugal",     v:"RD Congo",     g:"K",f:"Jun 17",...times("11:00","Jun 17")},
-  {l:"Inglaterra",   v:"Croacia",      g:"L",f:"Jun 17",...times("14:00","Jun 17")},
-  {l:"Ghana",        v:"Panamá",       g:"L",f:"Jun 17",...times("17:00","Jun 17")},
-  {l:"Uzbekistán",   v:"Colombia",     g:"K",f:"Jun 17",...times("20:00","Jun 17")},
-  {l:"R. Checa",     v:"Sudáfrica",    g:"A",f:"Jun 18",...times("10:00","Jun 18")},
-  {l:"Suiza",        v:"Bosnia-Herz.", g:"B",f:"Jun 18",...times("13:00","Jun 18")},
-  {l:"Canadá",       v:"Qatar",        g:"B",f:"Jun 18",...times("16:00","Jun 18")},
-  {l:"México",       v:"Corea del Sur",g:"A",f:"Jun 18",...times("19:00","Jun 18")},
-  {l:"EE.UU.",       v:"Australia",    g:"D",f:"Jun 19",...times("13:00","Jun 19")},
-  {l:"Escocia",      v:"Marruecos",    g:"C",f:"Jun 19",...times("16:00","Jun 19")},
-  {l:"Brasil",       v:"Haití",        g:"C",f:"Jun 19",...times("18:30","Jun 19")},
-  {l:"Turquía",      v:"Paraguay",     g:"D",f:"Jun 19",...times("21:00","Jun 19")},
-  {l:"P. Bajos",     v:"Suecia",       g:"F",f:"Jun 20",...times("11:00","Jun 20")},
-  {l:"Alemania",     v:"C. de Marfil", g:"E",f:"Jun 20",...times("14:00","Jun 20")},
-  {l:"Ecuador",      v:"Curazao",      g:"E",f:"Jun 20",...times("20:00","Jun 20")},
-  {l:"Túnez",        v:"Japón",        g:"F",f:"Jun 20",...times("22:00","Jun 20")},
-  {l:"España",       v:"Arabia S.",    g:"H",f:"Jun 21",...times("10:00","Jun 21")},
-  {l:"Bélgica",      v:"Irán",         g:"G",f:"Jun 21",...times("13:00","Jun 21")},
-  {l:"Uruguay",      v:"Cabo Verde",   g:"H",f:"Jun 21",...times("16:00","Jun 21")},
-  {l:"N. Zelanda",   v:"Egipto",       g:"G",f:"Jun 21",...times("19:00","Jun 21")},
-  {l:"Argentina",    v:"Austria",      g:"J",f:"Jun 22",...times("11:00","Jun 22")},
-  {l:"Francia",      v:"Irak",         g:"I",f:"Jun 22",...times("15:00","Jun 22")},
-  {l:"Noruega",      v:"Senegal",      g:"I",f:"Jun 22",...times("18:00","Jun 22")},
-  {l:"Jordania",     v:"Argelia",      g:"J",f:"Jun 22",...times("21:00","Jun 22")},
-  {l:"Portugal",     v:"Uzbekistán",   g:"K",f:"Jun 23",...times("11:00","Jun 23")},
-  {l:"Inglaterra",   v:"Ghana",        g:"L",f:"Jun 23",...times("14:00","Jun 23")},
-  {l:"Panamá",       v:"Croacia",      g:"L",f:"Jun 23",...times("17:00","Jun 23")},
-  {l:"Colombia",     v:"RD Congo",     g:"K",f:"Jun 23",...times("20:00","Jun 23")},
-  {l:"Suiza",        v:"Canadá",       g:"B",f:"Jun 24",...times("13:00","Jun 24")},
-  {l:"Bosnia-Herz.", v:"Qatar",        g:"B",f:"Jun 24",...times("13:00","Jun 24")},
-  {l:"Sudáfrica",    v:"Corea del Sur",g:"A",f:"Jun 24",...times("19:00","Jun 24")},
-  {l:"México",       v:"R. Checa",     g:"A",f:"Jun 24",...times("19:00","Jun 24")},
-  {l:"Marruecos",    v:"Brasil",       g:"C",f:"Jun 25",...times("13:00","Jun 25")},
-  {l:"Escocia",      v:"Haití",        g:"C",f:"Jun 25",...times("13:00","Jun 25")},
-  {l:"Paraguay",     v:"EE.UU.",       g:"D",f:"Jun 25",...times("19:00","Jun 25")},
-  {l:"Turquía",      v:"Australia",    g:"D",f:"Jun 25",...times("19:00","Jun 25")},
-  {l:"Japón",        v:"P. Bajos",     g:"F",f:"Jun 26",...times("13:00","Jun 26")},
-  {l:"Túnez",        v:"Suecia",       g:"F",f:"Jun 26",...times("13:00","Jun 26")},
-  {l:"Curazao",      v:"Alemania",     g:"E",f:"Jun 26",...times("19:00","Jun 26")},
-  {l:"Ecuador",      v:"C. de Marfil", g:"E",f:"Jun 26",...times("19:00","Jun 26")},
-  {l:"Egipto",       v:"Bélgica",      g:"G",f:"Jun 27",...times("13:00","Jun 27")},
-  {l:"N. Zelanda",   v:"Irán",         g:"G",f:"Jun 27",...times("13:00","Jun 27")},
-  {l:"Cabo Verde",   v:"España",       g:"H",f:"Jun 27",...times("19:00","Jun 27")},
-  {l:"Uruguay",      v:"Arabia S.",    g:"H",f:"Jun 27",...times("19:00","Jun 27")},
-  {l:"Senegal",      v:"Francia",      g:"I",f:"Jun 27",...times("13:00","Jun 27")},
-  {l:"Noruega",      v:"Irak",         g:"I",f:"Jun 27",...times("13:00","Jun 27")},
-  {l:"Argelia",      v:"Argentina",    g:"J",f:"Jun 27",...times("19:00","Jun 27")},
-  {l:"Jordania",     v:"Austria",      g:"J",f:"Jun 27",...times("19:00","Jun 27")},
-  {l:"RD Congo",     v:"Portugal",     g:"K",f:"Jun 27",...times("13:00","Jun 27")},
-  {l:"Colombia",     v:"Uzbekistán",   g:"K",f:"Jun 27",...times("13:00","Jun 27")},
-  {l:"Croacia",      v:"Inglaterra",   g:"L",f:"Jun 27",...times("19:00","Jun 27")},
-  {l:"Panamá",       v:"Ghana",        g:"L",f:"Jun 27",...times("19:00","Jun 27")},
+  {l:"México",v:"Sudáfrica",g:"A",f:"Jun 11",...times("13:00","Jun 11")},
+  {l:"Corea del Sur",v:"R. Checa",g:"A",f:"Jun 11",...times("20:00","Jun 11")},
+  {l:"Canadá",v:"Bosnia-Herz.",g:"B",f:"Jun 12",...times("13:00","Jun 12")},
+  {l:"EE.UU.",v:"Paraguay",g:"D",f:"Jun 12",...times("19:00","Jun 12")},
+  {l:"Qatar",v:"Suiza",g:"B",f:"Jun 13",...times("13:00","Jun 13")},
+  {l:"Brasil",v:"Marruecos",g:"C",f:"Jun 13",...times("16:00","Jun 13")},
+  {l:"Haití",v:"Escocia",g:"C",f:"Jun 13",...times("19:00","Jun 13")},
+  {l:"Australia",v:"Turquía",g:"D",f:"Jun 13",...times("22:00","Jun 13")},
+  {l:"Alemania",v:"Curazao",g:"E",f:"Jun 14",...times("11:00","Jun 14")},
+  {l:"P. Bajos",v:"Japón",g:"F",f:"Jun 14",...times("14:00","Jun 14")},
+  {l:"C. de Marfil",v:"Ecuador",g:"E",f:"Jun 14",...times("17:00","Jun 14")},
+  {l:"Suecia",v:"Túnez",g:"F",f:"Jun 14",...times("20:00","Jun 14")},
+  {l:"España",v:"Cabo Verde",g:"H",f:"Jun 15",...times("10:00","Jun 15")},
+  {l:"Bélgica",v:"Egipto",g:"G",f:"Jun 15",...times("13:00","Jun 15")},
+  {l:"Arabia S.",v:"Uruguay",g:"H",f:"Jun 15",...times("16:00","Jun 15")},
+  {l:"Irán",v:"N. Zelanda",g:"G",f:"Jun 15",...times("19:00","Jun 15")},
+  {l:"Francia",v:"Senegal",g:"I",f:"Jun 16",...times("13:00","Jun 16")},
+  {l:"Irak",v:"Noruega",g:"I",f:"Jun 16",...times("16:00","Jun 16")},
+  {l:"Argentina",v:"Argelia",g:"J",f:"Jun 16",...times("19:00","Jun 16")},
+  {l:"Austria",v:"Jordania",g:"J",f:"Jun 16",...times("22:00","Jun 16")},
+  {l:"Portugal",v:"RD Congo",g:"K",f:"Jun 17",...times("11:00","Jun 17")},
+  {l:"Inglaterra",v:"Croacia",g:"L",f:"Jun 17",...times("14:00","Jun 17")},
+  {l:"Ghana",v:"Panamá",g:"L",f:"Jun 17",...times("17:00","Jun 17")},
+  {l:"Uzbekistán",v:"Colombia",g:"K",f:"Jun 17",...times("20:00","Jun 17")},
+  {l:"R. Checa",v:"Sudáfrica",g:"A",f:"Jun 18",...times("10:00","Jun 18")},
+  {l:"Suiza",v:"Bosnia-Herz.",g:"B",f:"Jun 18",...times("13:00","Jun 18")},
+  {l:"Canadá",v:"Qatar",g:"B",f:"Jun 18",...times("16:00","Jun 18")},
+  {l:"México",v:"Corea del Sur",g:"A",f:"Jun 18",...times("19:00","Jun 18")},
+  {l:"EE.UU.",v:"Australia",g:"D",f:"Jun 19",...times("13:00","Jun 19")},
+  {l:"Escocia",v:"Marruecos",g:"C",f:"Jun 19",...times("16:00","Jun 19")},
+  {l:"Brasil",v:"Haití",g:"C",f:"Jun 19",...times("19:00","Jun 19")},
+  {l:"Turquía",v:"Paraguay",g:"D",f:"Jun 19",...times("22:00","Jun 19")},
+  {l:"P. Bajos",v:"Suecia",g:"F",f:"Jun 20",...times("11:00","Jun 20")},
+  {l:"Alemania",v:"C. de Marfil",g:"E",f:"Jun 20",...times("14:00","Jun 20")},
+  {l:"Ecuador",v:"Curazao",g:"E",f:"Jun 20",...times("20:00","Jun 20")},
+  {l:"Túnez",v:"Japón",g:"F",f:"Jun 20",...times("22:00","Jun 20")},
+  {l:"España",v:"Arabia S.",g:"H",f:"Jun 21",...times("10:00","Jun 21")},
+  {l:"Bélgica",v:"Irán",g:"G",f:"Jun 21",...times("13:00","Jun 21")},
+  {l:"Uruguay",v:"Cabo Verde",g:"H",f:"Jun 21",...times("16:00","Jun 21")},
+  {l:"N. Zelanda",v:"Egipto",g:"G",f:"Jun 21",...times("19:00","Jun 21")},
+  {l:"Argentina",v:"Austria",g:"J",f:"Jun 22",...times("11:00","Jun 22")},
+  {l:"Francia",v:"Irak",g:"I",f:"Jun 22",...times("15:00","Jun 22")},
+  {l:"Noruega",v:"Senegal",g:"I",f:"Jun 22",...times("18:00","Jun 22")},
+  {l:"Jordania",v:"Argelia",g:"J",f:"Jun 22",...times("21:00","Jun 22")},
+  {l:"Portugal",v:"Uzbekistán",g:"K",f:"Jun 23",...times("11:00","Jun 23")},
+  {l:"Inglaterra",v:"Ghana",g:"L",f:"Jun 23",...times("14:00","Jun 23")},
+  {l:"Panamá",v:"Croacia",g:"L",f:"Jun 23",...times("17:00","Jun 23")},
+  {l:"Colombia",v:"RD Congo",g:"K",f:"Jun 23",...times("20:00","Jun 23")},
+  {l:"Suiza",v:"Canadá",g:"B",f:"Jun 24",...times("13:00","Jun 24")},
+  {l:"Bosnia-Herz.",v:"Qatar",g:"B",f:"Jun 24",...times("13:00","Jun 24")},
+  {l:"Escocia",v:"Brasil",g:"C",f:"Jun 24",...times("16:00","Jun 24")},
+  {l:"Marruecos",v:"Haití",g:"C",f:"Jun 24",...times("16:00","Jun 24")},
+  {l:"R. Checa",v:"México",g:"A",f:"Jun 24",...times("19:00","Jun 24")},
+  {l:"Sudáfrica",v:"Corea del Sur",g:"A",f:"Jun 24",...times("19:00","Jun 24")},
+  {l:"Ecuador",v:"Alemania",g:"E",f:"Jun 25",...times("14:00","Jun 25")},
+  {l:"Curazao",v:"C. de Marfil",g:"E",f:"Jun 25",...times("14:00","Jun 25")},
+  {l:"Japón",v:"Suecia",g:"F",f:"Jun 25",...times("17:00","Jun 25")},
+  {l:"Túnez",v:"P. Bajos",g:"F",f:"Jun 25",...times("17:00","Jun 25")},
+  {l:"Turquía",v:"EE.UU.",g:"D",f:"Jun 25",...times("20:00","Jun 25")},
+  {l:"Paraguay",v:"Australia",g:"D",f:"Jun 25",...times("20:00","Jun 25")},
+  {l:"Noruega",v:"Francia",g:"I",f:"Jun 26",...times("13:00","Jun 26")},
+  {l:"Senegal",v:"Irak",g:"I",f:"Jun 26",...times("13:00","Jun 26")},
+  {l:"Uruguay",v:"España",g:"H",f:"Jun 26",...times("17:00","Jun 26")},
+  {l:"Cabo Verde",v:"Arabia S.",g:"H",f:"Jun 26",...times("17:00","Jun 26")},
+  {l:"Egipto",v:"Irán",g:"G",f:"Jun 26",...times("20:00","Jun 26")},
+  {l:"N. Zelanda",v:"Bélgica",g:"G",f:"Jun 26",...times("20:00","Jun 26")},
+  {l:"Croacia",v:"Ghana",g:"L",f:"Jun 27",...times("11:00","Jun 27")},
+  {l:"Panamá",v:"Inglaterra",g:"L",f:"Jun 27",...times("11:00","Jun 27")},
+  {l:"RD Congo",v:"Uzbekistán",g:"K",f:"Jun 27",...times("15:00","Jun 27")},
+  {l:"Colombia",v:"Portugal",g:"K",f:"Jun 27",...times("15:00","Jun 27")},
+  {l:"Argelia",v:"Austria",g:"J",f:"Jun 27",...times("19:00","Jun 27")},
+  {l:"Jordania",v:"Argentina",g:"J",f:"Jun 27",...times("19:00","Jun 27")}
 ];
 
 const mk = (l,v,f,h) => ({l,v,f,...times(h)});
@@ -691,6 +691,79 @@ const getMX = () => {
 };
 const getMData  = (phId, mi) => (dbState[phId]?.[mi]) || {real:"",preds:{}};
 const isAdmin   = () => me === RESULT_ADMIN;
+
+// ── RESULTADOS OFICIALES (actualizado manualmente por Claude con info pública) ──
+const OFFICIAL_RESULTS = {
+  "México|Sudáfrica": "1",
+  "Corea del Sur|R. Checa": "1",
+  "Canadá|Bosnia-Herz.": "X",
+  "EE.UU.|Paraguay": "1",
+  "Qatar|Suiza": "X",
+  "Brasil|Marruecos": "X",
+  "Haití|Escocia": "2",
+  "Australia|Turquía": "1",
+  "Alemania|Curazao": "1",
+  "P. Bajos|Japón": "X",
+  "C. de Marfil|Ecuador": "1",
+  "Suecia|Túnez": "1",
+  "España|Cabo Verde": "X",
+  "Bélgica|Egipto": "X",
+  "Arabia S.|Uruguay": "X",
+  "Irán|N. Zelanda": "X",
+  "Francia|Senegal": "1",
+  "Irak|Noruega": "2",
+  "Argentina|Argelia": "1",
+  "Austria|Jordania": "1",
+  "Portugal|RD Congo": "X",
+  "Inglaterra|Croacia": "1",
+  "Ghana|Panamá": "1",
+  "Uzbekistán|Colombia": "2",
+  "R. Checa|Sudáfrica": "X",
+  "Suiza|Bosnia-Herz.": "1",
+  "Canadá|Qatar": "1",
+  "México|Corea del Sur": "1",
+  "EE.UU.|Australia": "1",
+  "Escocia|Marruecos": "2",
+  "Brasil|Haití": "1",
+  "Turquía|Paraguay": "2",
+  "P. Bajos|Suecia": "1",
+  "Alemania|C. de Marfil": "1",
+  "Ecuador|Curazao": "X",
+  "Túnez|Japón": "2",
+  "España|Arabia S.": "1",
+  "Bélgica|Irán": "X",
+  "Uruguay|Cabo Verde": "X",
+  "N. Zelanda|Egipto": "2",
+  "Argentina|Austria": "1",
+  "Francia|Irak": "1",
+  "Noruega|Senegal": "1",
+  "Jordania|Argelia": "2",
+  "Portugal|Uzbekistán": "1",
+  "Inglaterra|Ghana": "X",
+  "Panamá|Croacia": "2",
+  "Colombia|RD Congo": "1"
+};
+
+window.autoFillResults = async () => {
+  if (!isAdmin()) return;
+  const btn = document.getElementById("autofill-btn");
+  if (btn) { btn.disabled = true; btn.textContent = "⏳ Actualizando..."; }
+  let updated = 0, alreadySet = 0, notFound = 0;
+  for (const ph of PHASES) {
+    for (let mi = 0; mi < ph.matches.length; mi++) {
+      const m = ph.matches[mi];
+      const key = `${m.l}|${m.v}`;
+      const official = OFFICIAL_RESULTS[key];
+      if (!official) { notFound++; continue; }
+      const current = getMData(ph.id, mi).real;
+      if (current === official) { alreadySet++; continue; }
+      await db.ref(`quiniela/${ph.id}/${mi}/real`).set(official);
+      updated++;
+    }
+  }
+  if (btn) { btn.disabled = false; btn.textContent = "🔄 Actualizar resultados oficiales"; }
+  showToast(`✅ ${updated} actualizado(s) · ${alreadySet} ya estaban bien · ${notFound} aún sin jugar`);
+};
 
 function getPhPts(ph) {
   return MEMBERS.map(n => ph.matches.reduce((a,_,mi) => {
@@ -828,8 +901,11 @@ function renderHoy() {
   PHASES.forEach(ph => ph.matches.forEach((m,i) => { if(m.f===today) todayMatches.push({ph,m,i}); }));
 
   if (!todayMatches.length) {
-    
-    panel.innerHTML = `<div class="hoy-empty">
+    const copyBtnHtmlEmpty = `<button class="copy-msg-btn" id="copy-wa-btn" onclick="copyWAMsg()">📋 Copiar mensaje de hoy para WhatsApp</button>`;
+    const adminBtnHtmlEmpty = isAdmin()
+      ? `<button class="copy-msg-btn" id="autofill-btn" onclick="autoFillResults()" style="border-color:#27ae60;color:#27ae60;background:rgba(39,174,96,0.08);">🔄 Actualizar resultados oficiales</button>`
+      : '';
+    panel.innerHTML = copyBtnHtmlEmpty + adminBtnHtmlEmpty + `<div class="hoy-empty">
       <div class="hoy-empty-icon">🛸</div>
       <div class="hoy-empty-title">Sin Misiones Hoy</div>
       <div class="hoy-empty-sub">No hay partidos hoy (${today})<br>Descansa, tripulante. Mañana hay acción.</div>
@@ -838,7 +914,11 @@ function renderHoy() {
   }
 
   const teams = [...new Set(todayMatches.flatMap(({m})=>[m.l,m.v]))];
-  let html = `<div class="hoy-hero">
+  const copyBtnHtml = `<button class="copy-msg-btn" id="copy-wa-btn" onclick="copyWAMsg()">📋 Copiar mensaje de hoy para WhatsApp</button>`;
+  const adminBtnHtml = isAdmin()
+    ? `<button class="copy-msg-btn" id="autofill-btn" onclick="autoFillResults()" style="border-color:#27ae60;color:#27ae60;background:rgba(39,174,96,0.08);">🔄 Actualizar resultados oficiales</button>`
+    : '';
+  let html = copyBtnHtml + adminBtnHtml + `<div class="hoy-hero">
     <div class="hoy-fecha">⚡ ${today} · Misión del día</div>
     <div class="hoy-count"><span>${todayMatches.length}</span> partido${todayMatches.length>1?'s':''} hoy</div>
     <div class="hoy-teams">${teams.slice(0,6).map(t=>F(t)).join(' ')}</div>
